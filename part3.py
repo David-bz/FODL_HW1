@@ -238,14 +238,14 @@ class Part_3:
             [axes[0][i].plot(getattr(train_res, loss_acc)) for train_res in train_results]
             axes[0][i].set_title('Train ' + loss_acc.capitalize(), fontweight='bold')
             axes[0][i].set_xlabel('Epoch')
-            axes[0][i].legend((leg))
+            # axes[0][i].legend((leg))
             axes[0][i].grid(which='both', axis='y')
 
         for i, loss_acc in enumerate(('loss', 'accuracy')):
             [axes[1][i].plot(getattr(test_res, loss_acc)) for test_res in test_results]
             axes[1][i].set_title('Test ' + loss_acc.capitalize(), fontweight='bold')
             axes[1][i].set_xlabel('Epoch')
-            axes[1][i].legend(leg)
+            # axes[1][i].legend(leg)
             axes[1][i].grid(which='both', axis='y')
 
         fig.tight_layout(pad=3.0)
@@ -259,19 +259,19 @@ class Part_3:
         linear_dimension = [12544]
         for channels, dim in zip(widths, linear_dimension):
             self.set_baseline_model(channels=channels, hidden_dims=(dim, 784), num_conv_layers = 2)
-            train_res, test_res, _ = self.train(num_epochs = 30)
+            train_res, test_res, _ = self.train(num_epochs = 100)
             train_results.append(train_res)
             test_results.append(test_res)
         self.comapre_plot_fig(filename=name, legend=description, param_values=widths, train_results=train_results, test_results=test_results)
 
 
 if __name__ == '__main__':
-    # p = Part_3(in_features, num_classes, data_mode='reg')
-    # p.run_hw4_experiment(name='exp1: regular train set', description="Regular setup")
-    # p = Part_3(in_features, num_classes, data_mode='random_train')
-    # p.run_hw4_experiment(name='exp2: train randomized', description="Randomized train set")
-    # p = Part_3(in_features, num_classes, data_mode='half_random')
-    # p.run_hw4_experiment(name='exp3: half randomized', description="Half of train set randomized")
+    p = Part_3(in_features, num_classes, data_mode='reg')
+    p.run_hw4_experiment(name='exp1_regular_train_set', description="Regular_setup")
+    p = Part_3(in_features, num_classes, data_mode='random_train')
+    p.run_hw4_experiment(name='exp2_train_randomized', description="Randomized_train_set")
+    p = Part_3(in_features, num_classes, data_mode='half_random')
+    p.run_hw4_experiment(name='exp3_half_randomized', description="Half_of_train_set_randomized")
     p = Part_3(in_features, num_classes, data_mode='adversarial')
     p.run_hw4_experiment(name='exp4_manipulate_adversarially', description="Half_of_train_set_manipulated")
     # f_exe =[p.perform_grid_search,
