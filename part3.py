@@ -267,9 +267,9 @@ class Part_3:
 
 if __name__ == '__main__':
     p = Part_3(in_features, num_classes, data_mode='reg')
-    p.run_hw4_experiment('exp1')
+    p.run_hw4_experiment(name='exp1')
     p = Part_3(in_features, num_classes, data_mode='random_train')
-    p.run_hw4_experiment('exp2')
+    p.run_hw4_experiment(name='exp2')
     # f_exe =[p.perform_grid_search,
     #         p.set_optimization_experiment,
     #         p.set_initialization_experiment,
