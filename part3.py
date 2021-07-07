@@ -12,8 +12,8 @@ import time
 
 in_features= 3 * 32 * 32
 num_classes = 10
-selected = {'lr' : 0.0075,
-            'momentum' : 0.8,
+selected = {'lr' : 0.01,
+            'momentum' : 0.0,
             'std' : 0.05}
 
 
