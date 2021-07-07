@@ -20,7 +20,7 @@ class HW1_Dataset:
         self.train_indices = np.random.choice(len(self.ds_train), int(self.subset_portion * len(self.ds_train)))
         self.test_indices = np.random.choice(len(self.ds_test), int(self.subset_portion * len(self.ds_test)))
         if mode == 'random_train':
-            alternative_data = np.random.randint(0, 255, size=(50000,32,32,3))
+            alternative_data = np.random.randint(0, 256, size=(50000,32,32,3),dtype=np.uint8)
             self.ds_train.data = alternative_data
 
         if validation_portion > 0:
