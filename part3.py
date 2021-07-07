@@ -277,4 +277,4 @@ if __name__ == '__main__':
     # for f in f_exe:
     #     p = Part_3(in_features, num_classes)
     #     f()
-    p.run_hw4_experiment()
+    p.set_network_width_experiment()
