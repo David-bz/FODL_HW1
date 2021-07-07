@@ -259,7 +259,7 @@ class Part_3:
         linear_dimension = [12544]
         for channels, dim in zip(widths, linear_dimension):
             self.set_baseline_model(channels=channels, hidden_dims=(dim, 784), num_conv_layers = 2)
-            train_res, test_res, _ = self.train(num_epochs = 100)
+            train_res, test_res, _ = self.train(num_epochs = 30)
             train_results.append(train_res)
             test_results.append(test_res)
         self.comapre_plot_fig(filename=name, legend=description, param_values=widths, train_results=train_results, test_results=test_results)
