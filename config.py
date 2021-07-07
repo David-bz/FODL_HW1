@@ -29,7 +29,7 @@ class HW1_Dataset:
         elif mode == 'adversarial':
             indices = np.random.choice(len(self.ds_train), len(self.ds_train) // 2)
             for idx in indices:
-                self.ds_train.targets[idx] = np.random.randint(0, 10)
+                self.ds_train.targets[idx] = (self.ds_train.targets[idx] + 1) % 10
 
         if validation_portion > 0:
             self._init_with_validation(validation_portion)
