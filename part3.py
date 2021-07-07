@@ -247,7 +247,7 @@ class Part_3:
             axes[1][i].grid(which='both', axis='y')
 
         plt.savefig(self.dir + '/experiments/' + filename + '.png')
-        plt.show()
+        #plt.show()
 
     def run_hw4_experiment(self, filter_sizes=((512, 256),)):
         train_results = []
