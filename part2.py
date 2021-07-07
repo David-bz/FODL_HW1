@@ -9,7 +9,7 @@ import torch.utils.data as data_utils
 from sklearn.decomposition import PCA
 import time
 from inception import *
-
+import os
 
 in_features= 3 * 32 * 32
 num_classes = 10
@@ -23,8 +23,7 @@ class Part_2:
         self.ds = HW1_Dataset(batch_size = 100, subset_portion = 0.5)
         self.in_features, self.num_classes =  in_features, num_classes
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-        self.dir = '/content/drive/My Drive/TAU/Foundations_of_Deep_Learning/' if torch.cuda.is_available() \
-            else './'
+        self.dir = os.path.abspath('.')
         self.set_baseline_model()
 
     def perform_grid_search(self, subset_portion = 0.1):
@@ -173,7 +172,7 @@ class Part_2:
                 if self.device:
                     images = images.to(self.device)
                     labels = labels.to(self.device)
-                images = Variable(images.view(-1, input_size))
+                images = Variable(images)
                 labels = Variable(labels)
                 # Forward + Backward + Optimize
                 self.optimizer.zero_grad()
