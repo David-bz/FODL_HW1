@@ -13,8 +13,8 @@ import time
 in_features= 3 * 32 * 32
 num_classes = 10
 selected = {'lr' : 0.01,
-            'momentum' : 0.0,
-            'std' : 0.05}
+            'momentum' : 0.9,
+            'std' : 0.02}
 
 
 class CNN_Wrapper(nn.Module):
@@ -68,7 +68,7 @@ class Part_3:
             self.set_baseline_model()
 
     def set_baseline_model(self, input_size = (3, 32, 32), channels = (64, 16), hidden_dims = (784,784),
-                            init_lr = selected['lr'], init_momentum = selected['lr'],
+                            init_lr = selected['lr'], init_momentum = selected['momentum'],
                            init_std = selected['std'], dropout=None, init_weight_decay=0., num_conv_layers = 2):
         num_classes = 10
         in_channels, in_h, in_w = input_size
