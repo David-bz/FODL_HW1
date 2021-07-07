@@ -63,7 +63,7 @@ class Part_3:
         self.ds = HW1_Dataset(batch_size = 100, subset_portion = 0.1)
         self.in_features, self.num_classes =  in_features, num_classes
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-        self.dir = os.path.abspath('.')
+        self.dir = os.path.abspath('./')
         if init_model:
             self.set_baseline_model()
 
@@ -246,19 +246,21 @@ class Part_3:
             axes[1][i].legend(leg)
             axes[1][i].grid(which='both', axis='y')
 
-        plt.savefig(self.dir + 'part3_experiments/' + filename + '.png')
+        plt.savefig(self.dir + '/experiments/' + filename + '.png')
         plt.show()
 
-    def run_hw4_experiment(self):
+    def run_hw4_experiment(self, filter_sizes=((512, 256))):
         train_results = []
         test_results = []
-        name = 'network_depth'
-        linear_dimension = [3136, 12544]
-        self.set_baseline_model(num_conv_layers=3)
-        train_res, test_res, _ = self.train(num_epochs = 50)
-        train_results.append(train_res)
-        test_results.append(test_res)
-        self.comapre_plot_fig("tst", 'depth', list([0]), train_results, test_results)
+        name = '/network_width/'
+        linear_dimension = [12544]
+        for channels, dim in zip(filter_sizes, linear_dimension):
+            name += '_' + str(channels)
+            self.set_baseline_model(channels=channels, hidden_dims=(dim, 784))
+            train_res, test_res, _ = self.train(num_epochs = 100)
+            train_results.append(train_res)
+            test_results.append(test_res)
+        self.comapre_plot_fig(name, 'width', filter_sizes, train_results, test_results)
 
 
 if __name__ == '__main__':
