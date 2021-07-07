@@ -252,7 +252,7 @@ class Part_3:
     def run_hw4_experiment(self, filter_sizes=((512, 256),)):
         train_results = []
         test_results = []
-        name = '/network_width/'
+        name = 'network_width'
         linear_dimension = [12544]
         print(filter_sizes)
         print(type(filter_sizes))
