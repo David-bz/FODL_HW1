@@ -227,11 +227,11 @@ class Part_3:
         plt.savefig(self.dir + 'part3_experiments/' + filename + '.png')
         plt.show()
 
-    def comapre_plot_fig(self, filename, compared_param, param_values, train_results, test_results):
+    def comapre_plot_fig(self, filename, legend, param_values, train_results, test_results):
         fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(12, 9))
         fig.subplots_adjust(top=0.8)
         fig.suptitle(filename, fontsize=15, fontweight='bold', y=1)
-        leg = [str(compared_param) + '=' + str(s) for s in param_values]
+        leg = legend
         for i, loss_acc in enumerate(('loss', 'accuracy')):
             [axes[0][i].plot(getattr(train_res, loss_acc)) for train_res in train_results]
             axes[0][i].set_title('Train ' + loss_acc.capitalize(), fontweight='bold')
@@ -249,31 +249,28 @@ class Part_3:
         plt.savefig(self.dir + '/experiments/' + filename + '.png')
         #plt.show()
 
-    def run_hw4_experiment(self, filter_sizes=((512, 256),), name='exp1'):
+    def run_hw4_experiment(self, widths=((512, 256),), name='exp1', description="regular setup"):
         train_results = []
         test_results = []
         name = name
         linear_dimension = [12544]
-        print(filter_sizes)
-        print(type(filter_sizes))
-        for channels, dim in zip(filter_sizes, linear_dimension):
+        for channels, dim in zip(widths, linear_dimension):
             self.set_baseline_model(channels=channels, hidden_dims=(dim, 784), num_conv_layers = 2)
             train_res, test_res, _ = self.train(num_epochs = 100)
             train_results.append(train_res)
             test_results.append(test_res)
-        self.comapre_plot_fig(name, 'width', filter_sizes, train_results, test_results)
-
+        self.comapre_plot_fig(filename=name, legend=description, param_values=widths, train_results=train_results, test_results=test_results)
 
 
 if __name__ == '__main__':
-    # p = Part_3(in_features, num_classes, data_mode='reg')
-    # p.run_hw4_experiment(name='exp1')
-    # p = Part_3(in_features, num_classes, data_mode='random_train')
-    # p.run_hw4_experiment(name='exp2')
+    p = Part_3(in_features, num_classes, data_mode='reg')
+    p.run_hw4_experiment(name='exp1: regular train set', description="Regular setup")
+    p = Part_3(in_features, num_classes, data_mode='random_train')
+    p.run_hw4_experiment(name='exp2: train randomized', description="Randomized train set")
     p = Part_3(in_features, num_classes, data_mode='half_random')
-    p.run_hw4_experiment(name='exp3')
+    p.run_hw4_experiment(name='exp3: half randomized', description="Half of train set randomized")
     p = Part_3(in_features, num_classes, data_mode='adversarial')
-    p.run_hw4_experiment(name='exp4')
+    p.run_hw4_experiment(name='exp4: manipulate adversarially', description="Half of train set manipulated")
     # f_exe =[p.perform_grid_search,
     #         p.set_optimization_experiment,
     #         p.set_initialization_experiment,
