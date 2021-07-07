@@ -50,6 +50,8 @@ class CNN_Wrapper(nn.Module):
         self.classifier = nn.Sequential(*classifier_layers)
         self.feature_models.apply(init_weights)
         self.classifier.apply(init_weights)
+        print(self.feature_models)
+        print(self.classifier)
 
     def forward(self, X):
         features = self.feature_models(X)
@@ -229,7 +231,7 @@ class Part_3:
 
     def comapre_plot_fig(self, filename, legend, param_values, train_results, test_results):
         fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(12, 9))
-        fig.subplots_adjust(top=0.8)
+        fig.subplots_adjust(top=0.9)
         fig.suptitle(filename, fontsize=15, fontweight='bold', y=1)
         leg = legend
         for i, loss_acc in enumerate(('loss', 'accuracy')):
@@ -246,6 +248,7 @@ class Part_3:
             axes[1][i].legend(leg)
             axes[1][i].grid(which='both', axis='y')
 
+        fig.tight_layout(pad=3.0)
         plt.savefig(self.dir + '/experiments/' + filename + '.png')
         #plt.show()
 
@@ -270,7 +273,7 @@ if __name__ == '__main__':
     # p = Part_3(in_features, num_classes, data_mode='half_random')
     # p.run_hw4_experiment(name='exp3: half randomized', description="Half of train set randomized")
     p = Part_3(in_features, num_classes, data_mode='adversarial')
-    p.run_hw4_experiment(name='exp4: manipulate adversarially', description="Half of train set manipulated")
+    p.run_hw4_experiment(name='exp4:_manipulate_adversarially', description="Half_of_train_set_manipulated")
     # f_exe =[p.perform_grid_search,
     #         p.set_optimization_experiment,
     #         p.set_initialization_experiment,
