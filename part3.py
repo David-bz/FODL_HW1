@@ -249,7 +249,7 @@ class Part_3:
         plt.savefig(self.dir + '/experiments/' + filename + '.png')
         plt.show()
 
-    def run_hw4_experiment(self, filter_sizes=((512, 256))):
+    def run_hw4_experiment(self, filter_sizes=((512, 256)),):
         train_results = []
         test_results = []
         name = '/network_width/'
