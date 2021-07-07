@@ -254,6 +254,8 @@ class Part_3:
         test_results = []
         name = '/network_width/'
         linear_dimension = [12544]
+        print(filter_sizes)
+        print(type(filter_sizes))
         for channels, dim in zip(filter_sizes, linear_dimension):
             name += '_' + str(channels)
             self.set_baseline_model(channels=channels, hidden_dims=(dim, 784))
