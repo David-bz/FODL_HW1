@@ -250,6 +250,18 @@ class Part_3:
         plt.savefig(self.dir + 'part3_experiments/' + filename + '.png')
         plt.show()
 
+    def run_hw4_experiment(self):
+        train_results = []
+        test_results = []
+        name = 'network_depth'
+        linear_dimension = [3136, 12544]
+        self.set_baseline_model(num_conv_layers=3)
+        train_res, test_res, _ = self.train(num_epochs = 50)
+        train_results.append(train_res)
+        test_results.append(test_res)
+        self.comapre_plot_fig("tst", 'depth', list([0]), train_results, test_results)
+
+
 if __name__ == '__main__':
     p = Part_3(in_features, num_classes)
     # f_exe =[p.perform_grid_search,
@@ -262,4 +274,4 @@ if __name__ == '__main__':
     # for f in f_exe:
     #     p = Part_3(in_features, num_classes)
     #     f()
-    p.set_network_depth_experiment()
+    p.run_hw4_experiment()
