@@ -255,7 +255,7 @@ class Part_3:
         name = name
         linear_dimension = [12544]
         for channels, dim in zip(widths, linear_dimension):
-            self.set_baseline_model(channels=channels, hidden_dims=(dim, 784), num_conv_layers = 4)
+            self.set_baseline_model(channels=channels, hidden_dims=(dim, 784), num_conv_layers = 2)
             train_res, test_res, _ = self.train(num_epochs = 100)
             train_results.append(train_res)
             test_results.append(test_res)
@@ -265,12 +265,12 @@ class Part_3:
 if __name__ == '__main__':
     p = Part_3(in_features, num_classes, data_mode='reg')
     p.run_hw4_experiment(name='exp1: regular train set', description="Regular setup")
-    # p = Part_3(in_features, num_classes, data_mode='random_train')
-    # p.run_hw4_experiment(name='exp2: train randomized', description="Randomized train set")
-    # p = Part_3(in_features, num_classes, data_mode='half_random')
-    # p.run_hw4_experiment(name='exp3: half randomized', description="Half of train set randomized")
-    # p = Part_3(in_features, num_classes, data_mode='adversarial')
-    # p.run_hw4_experiment(name='exp4: manipulate adversarially', description="Half of train set manipulated")
+    p = Part_3(in_features, num_classes, data_mode='random_train')
+    p.run_hw4_experiment(name='exp2: train randomized', description="Randomized train set")
+    p = Part_3(in_features, num_classes, data_mode='half_random')
+    p.run_hw4_experiment(name='exp3: half randomized', description="Half of train set randomized")
+    p = Part_3(in_features, num_classes, data_mode='adversarial')
+    p.run_hw4_experiment(name='exp4: manipulate adversarially', description="Half of train set manipulated")
     # f_exe =[p.perform_grid_search,
     #         p.set_optimization_experiment,
     #         p.set_initialization_experiment,
