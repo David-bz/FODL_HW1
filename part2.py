@@ -20,7 +20,7 @@ selected = {'lr' : 0.00925,
 class Part_2:
     def __init__(self, in_features, num_classes):
         torch.manual_seed(10)
-        self.ds = HW1_Dataset(batch_size = 100, subset_portion = 0.1)
+        self.ds = HW1_Dataset(batch_size = 100, subset_portion = 0.5)
         self.in_features, self.num_classes =  in_features, num_classes
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         self.dir = '/content/drive/My Drive/TAU/Foundations_of_Deep_Learning/' if torch.cuda.is_available() \
@@ -48,9 +48,9 @@ class Part_2:
             pickle.dump(res, f)
 
     def set_baseline_model(self):
-        self.model = nn.Sequential(nn.Linear(self.in_features, 256),
-                            nn.ReLU(),
-                            nn.Linear(256, self.num_classes))
+        # self.model = nn.Sequential(nn.Linear(self.in_features, 256),
+        #                     nn.ReLU(),
+        #                     nn.Linear(256, self.num_classes))
         self.model = inception_v3()
         self.criterion = nn.CrossEntropyLoss()
         self.optimizer = optim.SGD(self.model.parameters(), lr=0.008, momentum=0.9)
@@ -262,8 +262,7 @@ class Part_2:
 
 if __name__ == '__main__':
     p = Part_2(in_features, num_classes)
-    # p.set_pca_experiment()
-    p.set_network_width_experiment()
-    p.set_network_depth_experiment()
+    train_res, test_res, train_time = p.train(num_epochs=150)
+
 
 
