@@ -58,9 +58,9 @@ class CNN_Wrapper(nn.Module):
         return out
 
 class Part_3:
-    def __init__(self, in_features, num_classes, init_model=True):
+    def __init__(self, in_features, num_classes, init_model=True, data_mode='reg'):
         torch.manual_seed(10)
-        self.ds = HW1_Dataset(batch_size = 100, subset_portion = 0.1)
+        self.ds = HW1_Dataset(batch_size = 100, subset_portion = 0.1,mode=data_mode)
         self.in_features, self.num_classes =  in_features, num_classes
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         self.dir = os.path.abspath('./')
@@ -249,15 +249,14 @@ class Part_3:
         plt.savefig(self.dir + '/experiments/' + filename + '.png')
         #plt.show()
 
-    def run_hw4_experiment(self, filter_sizes=((512, 256),)):
+    def run_hw4_experiment(self, filter_sizes=((512, 256),), name='exp1'):
         train_results = []
         test_results = []
-        name = 'network_width'
+        name = name
         linear_dimension = [12544]
         print(filter_sizes)
         print(type(filter_sizes))
         for channels, dim in zip(filter_sizes, linear_dimension):
-            name += '_' + str(channels)
             self.set_baseline_model(channels=channels, hidden_dims=(dim, 784), num_conv_layers = 2)
             train_res, test_res, _ = self.train(num_epochs = 100)
             train_results.append(train_res)
@@ -265,8 +264,12 @@ class Part_3:
         self.comapre_plot_fig(name, 'width', filter_sizes, train_results, test_results)
 
 
+
 if __name__ == '__main__':
-    p = Part_3(in_features, num_classes)
+    p = Part_3(in_features, num_classes, data_mode='reg')
+    p.run_hw4_experiment('exp1')
+    p = Part_3(in_features, num_classes, data_mode='random_train')
+    p.run_hw4_experiment('exp2')
     # f_exe =[p.perform_grid_search,
     #         p.set_optimization_experiment,
     #         p.set_initialization_experiment,
@@ -277,4 +280,3 @@ if __name__ == '__main__':
     # for f in f_exe:
     #     p = Part_3(in_features, num_classes)
     #     f()
-    p.run_hw4_experiment()

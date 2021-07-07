@@ -10,7 +10,7 @@ import torchvision
 import torchvision.transforms as tvtf
 
 class HW1_Dataset:
-    def __init__(self, validation_portion = 0., batch_size = 1, subset_portion = 0.1, pca = None):
+    def __init__(self, validation_portion = 0., batch_size = 1, subset_portion = 0.1, pca = None, mode='reg'):
         assert 0 < subset_portion <= 1.
         self.subset_portion = subset_portion
         self.batch_size = batch_size
@@ -19,6 +19,10 @@ class HW1_Dataset:
         self.ds_test = torchvision.datasets.CIFAR10(root=self.data_dir, download=True, train=False, transform=tvtf.ToTensor())
         self.train_indices = np.random.choice(len(self.ds_train), int(self.subset_portion * len(self.ds_train)))
         self.test_indices = np.random.choice(len(self.ds_test), int(self.subset_portion * len(self.ds_test)))
+        if mode == 'random_train':
+            alternative_data = np.random.randint(0, 255, size=(50000,32,32,3))
+            self.ds_train.data = alternative_data
+
         if validation_portion > 0:
             self._init_with_validation(validation_portion)
         train_sampler = torch.utils.data.sampler.SubsetRandomSampler(self.train_indices)
@@ -73,3 +77,6 @@ class HW1_Dataset:
         self.X_test, self.y_test = self.flatten(self.dl_test)
         self.X_train = self.X_train.reshape(5000, 3 * 32 * 32)
         self.X_test = self.X_test.reshape(1000, 3 * 32 * 32)
+
+if __name__ == '__main__':
+    data = HW1_Dataset(mode = 'random_train')
