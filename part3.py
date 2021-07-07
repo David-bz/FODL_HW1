@@ -63,8 +63,7 @@ class Part_3:
         self.ds = HW1_Dataset(batch_size = 100, subset_portion = 0.1)
         self.in_features, self.num_classes =  in_features, num_classes
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-        self.dir = '/content/drive/My Drive/TAU/Foundations_of_Deep_Learning/' if torch.cuda.is_available() \
-            else './'
+        self.dir = os.path.abspath('.')
         if init_model:
             self.set_baseline_model()
 
