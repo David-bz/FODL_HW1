@@ -249,7 +249,7 @@ class Part_3:
         plt.savefig(self.dir + '/experiments/' + filename + '.png')
         plt.show()
 
-    def run_hw4_experiment(self, filter_sizes=((512, 256)),):
+    def run_hw4_experiment(self, filter_sizes=((512, 256),)):
         train_results = []
         test_results = []
         name = '/network_width/'
@@ -258,7 +258,7 @@ class Part_3:
         print(type(filter_sizes))
         for channels, dim in zip(filter_sizes, linear_dimension):
             name += '_' + str(channels)
-            self.set_baseline_model(channels=channels, hidden_dims=(dim, 784))
+            self.set_baseline_model(channels=channels, hidden_dims=(dim, 784), num_conv_layers = 5)
             train_res, test_res, _ = self.train(num_epochs = 100)
             train_results.append(train_res)
             test_results.append(test_res)
@@ -277,4 +277,4 @@ if __name__ == '__main__':
     # for f in f_exe:
     #     p = Part_3(in_features, num_classes)
     #     f()
-    p.set_network_width_experiment()
+    p.run_hw4_experiment()
