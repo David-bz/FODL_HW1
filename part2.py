@@ -20,7 +20,7 @@ selected = {'lr' : 0.00925,
 class Part_2:
     def __init__(self, in_features, num_classes):
         torch.manual_seed(10)
-        self.ds = HW1_Dataset(batch_size = 100, subset_portion = 0.5)
+        self.ds = HW1_Dataset(batch_size = 100, subset_portion = 0.05)
         self.in_features, self.num_classes =  in_features, num_classes
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         self.dir = os.path.abspath('.')
